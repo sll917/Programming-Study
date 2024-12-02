@@ -128,3 +128,6 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+# windowns system was on /dev/sda3 during installation 在双系统中（linux）隐藏windows分区的设置
+# UUID=B8F41A69F41A29E0	/dev/sda3	ntfs-3g		noauto.ro				0		0

@@ -7,11 +7,11 @@
 # **********************************************************
 echo -e "\n$(date "+%Y-%m-%d-%T") --- 开始工作\n"
 sudo apt-get update && sudo apt-get -y upgrade 
-sudo apt-get -y install vim git tree terminator manpages-zh curl wget shfmt shellcheck cutecom  
+sudo apt-get -y install vim git tree terminator manpages-zh curl wget shfmt shellcheck cutecom adb
 
 #1, 定义安装系统的类型:
 function Non_virtual_sys(){
-	sudo apt-get -y install axel samba cmake qtcreator build-essential gdb lnav unrar net-tools openssh-server vsftpd fdupes meld fortunes-zh hollywood sl 
+	sudo apt-get -y install axel samba cmake qtcreator build-essential gdb lnav unrar net-tools openssh-server vsftpd fdupes meld fortunes-zh sl 
 	if [ $? == 0 ];then
 		echo -e "\e[32m SW install successful ！\e[0m"
 	else 
@@ -20,7 +20,7 @@ function Non_virtual_sys(){
 }
 
 function virtual_sys(){
-	sudo apt-get -y install open-vm-tools-desktop axel samba cmake qtcreator build-essential gdb lnav unrar net-tools openssh-server vsftpd fdupes meld fortunes-zh hollywood sl 
+	sudo apt-get -y install open-vm-tools-desktop axel samba cmake qtcreator build-essential gdb lnav unrar net-tools openssh-server vsftpd fdupes meld fortunes-zh sl 
 	if [ $? == 0 ];then
 		echo -e "\e[32m SW install successful ！\e[0m"
 	else 
@@ -79,6 +79,30 @@ pip install pip -U
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip install numpy pandas scipy matplotlib ycmd
 
+#安装微信和teams
+apt list |grep -i microsoft-edge-stable
+if [ "$?" == "0" ];then
+	echo "microsoft-edge was installed"
+else
+	wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_131.0.2903.70-1_amd64.deb && sudo dpkg -i microsoft-edge*.deb && rm microsoft-edge*.deb
+fi
+
+apt list |grep -i wechat
+if [ "$?" == "0" ];then
+	echo "wechat was installed"
+else
+	wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb && sudo dpkg -i WeChatLinux*.deb && rm WeChatLinux*.deb
+fi
+
+sudo apt install gir1.2-ayatanaappindicator3-0.1 gir1.2-appindicator3-0.1
+apt list |grep -i localsend
+if [ "$?" == "0" ];then
+	echo "localsend was installed"
+else
+	wget https://github.com/localsend/localsend/releases/download/v1.16.1/LocalSend-1.16.1-linux-x86-64.deb && sudo dpkg -i LocalSend-*.deb && rm LocalSend-*.deb
+fi
+
+sudo snap install teams-for-linux --edge
 sudo apt-get autoremove && sudo apt-get autoclean
 echo -e "\n$(date "+%Y-%m-%d-%T") --- 结束工作\n"
 

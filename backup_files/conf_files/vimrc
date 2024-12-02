@@ -155,38 +155,38 @@ autocmd BufNewFile * normal G
 "   - 避免使用标准的 Vim 目录名称，如 'plugin'
 " 请使用单引号
 
-call plug#begin()		" Begin Vim-Plug plugin manager configuration
-"NERDTree（目录树）
-Plug 'scrooloose/nerdtree'
-" vim-airline状态栏美化
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"IndentLine（缩进提示）
-Plug 'Yggdroot/indentLine'
-"Plug 'Valloric/YouCompleteMe'
-call plug#end()			" End Vim-Plug plugin manager configuration
-
-" Configure the NERDTree plugin mapping button
-" Automatically open NERDTree after opening the file
-" autocmd VimEnter * NERDTree
-" " Key F2: Map other tabs
-map <F2> :NERDTreeMirror<CR>
-" Key F3: Expand/shrink NERDTree
-map <F3> :NERDTreeToggle<CR>
-" " Key f: In the NERDTree window, jump the cursor to the currently open file.
-map f :NERDTreeFind<CR>
-" Key 1: Switch to the previous tab
-"map 1 :tabp<CR>
-" Key 2: Switch to the next tab
-"map 2 :tabn<CR>
-
-" IndentLine
-" Enable IndentLine plugin
-let g:indentLine_enabled = 1
-" Set the characters for the indentation line, with a default value of '|'
-let g:indentLine_char = '¦'
-" Make the plugin run properly
-let g:indentLine_conceallevel = 2
-
-filetype plugin on
-let g:pydiction_location = '~/.vim/tools/pydiction/complete-dict'
+"call plug#begin()		" Begin Vim-Plug plugin manager configuration
+""NERDTree（目录树）
+"Plug 'scrooloose/nerdtree'
+"" vim-airline状态栏美化
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+""IndentLine（缩进提示）
+"Plug 'Yggdroot/indentLine'
+""Plug 'Valloric/YouCompleteMe'
+"call plug#end()			" End Vim-Plug plugin manager configuration
+"
+"" Configure the NERDTree plugin mapping button
+"" Automatically open NERDTree after opening the file
+"" autocmd VimEnter * NERDTree
+"" " Key F2: Map other tabs
+"map <F2> :NERDTreeMirror<CR>
+"" Key F3: Expand/shrink NERDTree
+"map <F3> :NERDTreeToggle<CR>
+"" " Key f: In the NERDTree window, jump the cursor to the currently open file.
+"map f :NERDTreeFind<CR>
+"" Key 1: Switch to the previous tab
+""map 1 :tabp<CR>
+"" Key 2: Switch to the next tab
+""map 2 :tabn<CR>
+"
+"" IndentLine
+"" Enable IndentLine plugin
+"let g:indentLine_enabled = 1
+"" Set the characters for the indentation line, with a default value of '|'
+"let g:indentLine_char = '¦'
+"" Make the plugin run properly
+"let g:indentLine_conceallevel = 2
+"
+"filetype plugin on
+"let g:pydiction_location = '~/.vim/tools/pydiction/complete-dict'

@@ -8,7 +8,8 @@
 #######################################################
 sudo cp conf_files/vimrc /etc/vim
 sudo cp conf_files/hosts /etc
-sudo cp conf_files/fstab /etc
+sudo apt install nscd -y && sudo /etc/init.d/nscd restart
 sudo cp conf_files/.bashrc ~
-sudo apt install curl
+sudo apt install curl -y
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
