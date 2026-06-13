@@ -11,8 +11,9 @@ git init
 # gitee 地址
 # git remote add gitee git@gitee.com:sll917/Study.git
 # github 地址
- git remote add github git@github.com:sll917/Programming-Study.git
+git remote add github git@github.com:sll917/Programming-Study.git
 git config --global user.name 'Sll917'
 git config --global user.email 'sll917@outlook.com'
-ssh-keygen -t rsa
-cat ~/.ssh/id_rsa.pub
+# ssh-key 生成指令
+# ssh-keygen -t ed25519 -C "Gitee SSH Key"
+cat ~/.ssh/id_ed25519.pub
