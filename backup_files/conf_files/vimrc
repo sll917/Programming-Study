@@ -1,0 +1,192 @@
+" 所有系统范围内的默认值都设置在$VIMRUNTIME/debian.vim中，来源于
+" 对：runtime的调用，您可以在下面找到。如果您想更改其中任何一个
+" 设置，你应该在这个文件（/etc/vim/vimrc）中完成，
+" 因为debian.vim每次升级vim包时都会被覆盖。
+" 建议在采购debian.vim后进行更改，因为它已经更改兼容”选项的值。
+runtime! debian.vim
+
+" 如果用户没有vimrc，Vim将加载$VIMRUNTIME/defaults.Vim。
+" 这发生在加载/etc/vim/vimrc（.local）之后，
+" 因此它将覆盖这些文件中的任何设置。
+" 如果您不希望发生这种情况，请取消对以下行的注释以防止
+" defaults.vim无法加载。
+" let g:skip_defaults_vim = 1
+
+" 取消注释下一行，使Vim更兼容Vi
+" 注意：debian.vim设置了‘nocompatible’。设置‘compatible”会改变很多
+" 选项，因此任何其他选项都应在设置“兼容”后设置
+set compatible
+
+" Vim5及更高版本支持语法高亮显示
+" 行默认情况下启用语法高亮显示。
+if has("syntax")
+  syntax on
+endif
+
+" 如果在编辑区域内使用深色背景并突出显示语法
+" 也启用此选项"
+set background=dark
+
+" 在重新打开文件时，取消注释以下内容以使Vim跳到最后一个位置
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" 取消注释以下内容以使Vim加载缩进规则和插件
+" 根据检测到的文件类型。
+filetype plugin indent on
+
+" 以下内容被评论掉了，因为它们导致vim表现得很好与常规Vi不同。不过强烈建议使用它们。
+set showcmd		" Show (partial) command in status line. 在状态行中显示（部分）命令。
+set showmatch		" Show matching brackets 显示匹配的括号.
+set ignorecase		" Do case insensitive matching 进行不区分大小写的匹配
+set smartcase		" Do smart case matching 进行智能案例匹配
+set incsearch		" Incremental search 增量搜索
+set autowrite		" 在以下命令之前自动保存：next和：make
+set hidden		" Hide buffers when they are abandoned 放弃缓冲区时隐藏缓冲区
+set mouse=a		" Enable mouse usage (all modes) 启用鼠标使用（所有模式）
+set number              " 设置显示行号
+syntax on 		" 自动语法高亮
+set number 		" 显示行号
+set cursorline		" 突出显示当前行
+set ruler 		" 打开状态栏标尺
+set shiftwidth=4 	" 设定 << 和 >> 命令移动时的宽度为 4
+set softtabstop=4 	" 使得按退格键时可以一次删掉 4 个空格
+set tabstop=4 		" 设定 tab 长度为 4
+set nobackup 		" 覆盖文件时不备份
+set autochdir 		" 自动切换当前目录为当前文件所在的目录
+set backupcopy=yes 	" 设置备份时的行为为覆盖
+set nowrapscan 		" 禁止在搜索到文件两端时重新搜索
+set hlsearch 		" 搜索时高亮显示被找到的文本
+set noerrorbells 	" 关闭错误信息响铃
+set novisualbell 	" 关闭使用可视响铃代替呼叫
+set t_vb= 		" 置空错误铃声的终端代码
+set matchtime=2  	" 短暂跳转到匹配括号的时间
+set magic 		" 设置魔术
+set guioptions-=T 	" 隐藏工具栏
+set guioptions-=m 	" 隐藏菜单栏
+set smartindent 	" 开启新行时使用智能自动缩进
+set cmdheight=1 	" 设定命令行的行数为 1"
+set laststatus=2 	" 显示状态栏 (默认值为 1, 无法显示状态栏)
+
+" Source a global configuration file if available 获取全局配置文件（如果可用）
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()"
+"""定义函数SetTitle，自动插入文件头
+func SetTitle()
+"如果文件类型为.sh文件
+	if &filetype == 'sh'
+		call setline(1,"\#!/bin/bash")
+		call append(line("."), "\#######################################################")
+		call append(line(".")+1, "\# Author: liangliangSu")
+		call append(line(".")+2, "\# Created Time:".strftime(" %Y-%m-%d\ %H:%M"))
+		call append(line(".")+3, "\# Email: sll917@outlook.com")
+		call append(line(".")+4, "\# Version: V1.0")
+		call append(line(".")+5, "\# File Name: ".expand("%"))
+		call append(line(".")+6, "\#######################################################")
+		call append(line(".")+7, "echo '(1)---------------完美分割线------------------'")
+
+	elseif &filetype == 'python'
+		call setline(1,"\#!/usr/bin/python3")
+		call append(line("."), "\# -*- coding:utf-8 -*-")
+		call append(line(".")+1, "\#######################################################")
+		call append(line(".")+2, "\# Author: liangliangSu")
+		call append(line(".")+3, "\# Created Time:".strftime(" %Y-%m-%d\ %H:%M"))
+		call append(line(".")+4, "\# Email: sll917@outlook.com")
+		call append(line(".")+5, "\# Version: V1.0")
+		call append(line(".")+6, "\# File Name: ".expand("%"))
+		call append(line(".")+7, "\#######################################################")
+		call append(line(".")+8, "print('(1)------------------完美分割线------------------')")
+	else
+		call setline(1, "/**********************************************************")
+		call append(line("."), " > File Name: ".expand("%"))
+		call append(line(".")+1, " > Author: liangliangSu")
+		call append(line(".")+2, " > Created Time: ".strftime("%c"))
+		call append(line(".")+3, " ******************************************************/")
+		call append(line(".")+4, "")
+	endif
+	if &filetype == 'cpp'
+		call append(line(".")+5, "#include<iostream>")
+		call append(line(".")+6, "using namespace std;")
+		call append(line(".")+7, "")
+		call append(line(".")+8, "int main(int argc, char* argv[])")
+		call append(line(".")+9, "{")
+		call append(line(".")+10, "")
+		call append(line(".")+11, "     return 0;")
+		call append(line(".")+12, "}")
+		call append(line(".")+13, "")
+	endif
+	if &filetype == 'c'
+		call append(line(".")+5, "#include<stdio.h>")
+		call append(line(".")+6, "#include<stdlib.h>")
+		call append(line(".")+7, "#include<string.h>")
+		call append(line(".")+8, "#include<unistd.h>")
+		call append(line(".")+9, "#include<pthread.h>")
+		call append(line(".")+10, "")
+		call append(line(".")+11, "int main(int argc, char* argv[])")
+		call append(line(".")+12, "{")
+		call append(line(".")+13, "")
+		call append(line(".")+14, "     return 0;")
+		call append(line(".")+15, "}")
+	endif
+"新建文件后，自动定位到文件末尾
+endfunc
+autocmd BufNewFile * normal G
+
+"以下是 vim-plug 命令：
+"命令	描述
+"PlugInstall [插件名] [线程数]	安装插件。如果不指定插件名，则安装 .vimrc 中所有记录的插件。
+"PlugUpdate [插件名] [线程数]	安装或更新插件。
+"PlugClean	删除所有插件。如果只是哪个插件不想用了，可以直接在 .vimrc 中把它注释掉即可。
+"PlugUpgrade	升级 vim-plug。
+"PlugStatus	检查插件的状态。
+"PlugDiff	显示更新前后插件变更内容。
+"PlugSnapshot [快照文件路径]	生成用于恢复插件的当前快照的脚本。生成的快照文件会包含插件当前的 git commit id
+"恢复插件的方法： 在 vim 中 source 快照文件或直接执行 vim -S snapshot.vim。
+
+"vim Plug config info
+" 默认的插件目录如下：
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" 通过传入参数可以指定自定义插件目录
+"   - 如 `call plug#begin('~/.vim/plugged')`
+"   - 避免使用标准的 Vim 目录名称，如 'plugin'
+" 请使用单引号
+
+"call plug#begin()		" Begin Vim-Plug plugin manager configuration
+""NERDTree（目录树）
+"Plug 'scrooloose/nerdtree'
+"" vim-airline状态栏美化
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+""IndentLine（缩进提示）
+"Plug 'Yggdroot/indentLine'
+""Plug 'Valloric/YouCompleteMe'
+"call plug#end()			" End Vim-Plug plugin manager configuration
+"
+"" Configure the NERDTree plugin mapping button
+"" Automatically open NERDTree after opening the file
+"" autocmd VimEnter * NERDTree
+"" " Key F2: Map other tabs
+"map <F2> :NERDTreeMirror<CR>
+"" Key F3: Expand/shrink NERDTree
+"map <F3> :NERDTreeToggle<CR>
+"" " Key f: In the NERDTree window, jump the cursor to the currently open file.
+"map f :NERDTreeFind<CR>
+"" Key 1: Switch to the previous tab
+""map 1 :tabp<CR>
+"" Key 2: Switch to the next tab
+""map 2 :tabn<CR>
+"
+"" IndentLine
+"" Enable IndentLine plugin
+"let g:indentLine_enabled = 1
+"" Set the characters for the indentation line, with a default value of '|'
+"let g:indentLine_char = '¦'
+"" Make the plugin run properly
+"let g:indentLine_conceallevel = 2
+"
+"filetype plugin on
+"let g:pydiction_location = '~/.vim/tools/pydiction/complete-dict'

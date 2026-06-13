@@ -1,0 +1,105 @@
+#!/bin/bash
+# **********************************************************
+# * Author : liangliangSu
+# * Email : sll917@hotmail.com
+# * Create time : 2023-01-29 08:45
+# * Filename : 02script_notes.sh
+# **********************************************************
+: 'shell脚本——注释
+# 单行注释
+以"#"开头的行就是注释，会被解释器忽略。
+# 这是一个注释
+# author：菜鸟教程
+# site：www.runoob.com
+# slogan：学的不仅是技术，更是梦想！
+'
+
+#多行注释
+#方法一：
+: <<!
+#被注释的内容
+!
+
+#方法二：
+: '
+#被注释的内容
+'
+
+#方法三：
+if false;then
+#被注释的内容
+fi
+
+#方法四：
+: <<任意字符或者数字
+#被注释的内容
+任意字符或者数字
+
+1，	Ctrl-l 清空屏幕，移动光标到左上角。clear 命令完成同样的工作。
+
+2，	在终端中,光标移动快捷键：
+Ctrl-a 移动光标到行首。
+Ctrl-e 移动光标到行尾。
+Ctrl-f 光标前移一个字符；和右箭头作用一样。
+Ctrl-b 光标后移一个字符；和左箭头作用一样。
+Alt-f 光标前移一个字。
+Alt-b 光标后移一个字。
+
+3, 在终端中,修改文本的快捷键：
+ Ctrl-d 删除光标位置的字符。
+Ctrl-t 光标位置的字符和光标前面的字符互换位置。
+Alt-t 光标位置的字和其前面的字互换位置。
+Alt-l 把从光标位置到字尾的字符转换成小写字母。
+Alt-u 把从光标位置到字尾的字符转换成大写字母。
+
+4, 剪切和粘贴文本
+Ctrl-k 剪切从光标位置到行尾的文本。
+Ctrl-u 剪切从光标位置到行首的文本。
+Alt-d 剪切从光标位置到词尾的文本。
+Alt-Backspace 剪切从光标位置到词头的文本。如果光标在一个单词的开头，剪切前一个单词。
+Ctrl-y 把剪切环中的文本粘贴到光标位置。
+
+5, 随机产生一个数字：
+随机产生一个数字(0~9)；
+while true;do declare -i number=$RANDOM*10/32768 ; echo $number;sleep 2;done；
+随机产生一个数字(0~99)；
+while true;do declare -i number=$RANDOM*100/32768 ; echo $number;sleep 2;done
+随机产生一个数字(0~999)；
+while true;do declare -i number=$RANDOM*1000/32768 ; echo $number;sleep 2;done
+
+6, uniq - 报道或忽略重复行（非常有用）
+
+7, tee －从Stdin 读取数据，并同时输出到Stdout 和文件
+
+8, 命令替换：
+这里我们把which cp 的执行结果作为一个参数传递给ls 命令，因此可以在不知道cp 命令
+完整路径名的情况下得到它的文件属性列表。我们不只限制于简单命令。也可以使用整个管道线（只展示部分输出）：
+sll@linux:~/Documents$ file $(ls /usr/bin/* | grep zip)
+/usr/bin/bunzip2:      ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter 
+/lib64/ld-linux-x86-64.so.2, BuildID[sha1]=04942293e732cd520714440dfeee0087129ea3ac, for GNU/Linux 3.2.0, stripped
+....
+在这个例子中，管道线的输出结果成为file 命令的参数列表。
+在旧版shell 程序中，有另一种语法也支持命令替换，可与刚提到的语法轮换使用。bash 也
+支持这种语法。它使用倒引号来代替美元符号和括号：
+sll@linux:~/Documents$ ls -l $(which cp)
+-rwxr-xr-x 1 root root 141824  2月  8 00:03 /usr/bin/cp（尽量使用这个参数传递）
+
+ll@linux:~/Documents$ ls -l `which cp`
+-rwxr-xr-x 1 root root 141824  2月  8 00:03 /usr/bin/cp（尽量使用这种，但是要看懂这种用法）
+
+9, 批量Ping网段(非常棒的,在工厂方便查询使用的网段IP使用情况,>>追加到txt查阅)
+for /L %D in (1,1,255) do ping 10.168.1.%D
+
+10，单引号
+如果需要禁止所有的展开，我们要使用单引号。以下例子是无引用，双引号，和单引号的比较结果：
+[me@linuxbox ~]$ echo text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+text /home/me/ls-output.txt a b foo 4 me
+[me@linuxbox ~]$ echo "text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER"
+text ~/*.txt {a,b} foo 4 me
+[me@linuxbox ~]$ echo 'text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER'
+text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+
+11,# 将文件中所有的小写字母转换为大写字母 
+# $1是位置参数,是你需要转换大小写字母的文件名称
+# 执行脚本,给定一个文件名作为参数,脚本就会将该文件中所有的小写字母转换为大写字母
+tr [a-z] [A-Z] < $1
